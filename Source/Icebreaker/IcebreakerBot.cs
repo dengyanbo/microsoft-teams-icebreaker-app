@@ -395,11 +395,22 @@ namespace Icebreaker
 
             var tasks = members.Select(m => this.dataProvider.GetUserInfoAsync(m.AsTeamsChannelAccount().ObjectId));
             var results = await Task.WhenAll(tasks);
-
-            return members
+            
+            //---------testing------------
+            this.telemetryClient.TrackTrace($"Testing, before filtering {members.Count} in team {teamInfo.TeamId}");
+            var members2 = members
                 .Zip(results, (member, userInfo) => ((userInfo == null) || userInfo.OptedIn) ? member : null)
                 .Where(m => m != null)
                 .ToList();
+            this.telemetryClient.TrackTrace($"Testing, after filtering {members2.Count} in team {teamInfo.TeamId}");
+            var members3 = members
+                .Zip(results, (member, userInfo) => ((userInfo == null) || userInfo.OptedIn) ? member : null)
+                .Where(m => m == null)
+                .ToList();
+            this.telemetryClient.TrackTrace($"Testing, during filtering {members3.Count} filtered out in team {teamInfo.TeamId}");
+            //----------------------------
+
+            return members2;
         }
 
         private List<Tuple<ChannelAccount, ChannelAccount>> MakePairs(List<ChannelAccount> users)
