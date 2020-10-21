@@ -400,7 +400,7 @@ namespace Icebreaker
             this.telemetryClient.TrackTrace($"Testing, before filtering {members.Count} in team {teamInfo.TeamId}");
             foreach (var m in members)
             {
-                this.telemetryClient.TrackTrace($"Channel member: {m.Name}, id: {m.Id}");
+                this.telemetryClient.TrackTrace($"Channel member: {m.Name}, role: {m.Role}");
             }
 
             var members2 = members
@@ -410,7 +410,7 @@ namespace Icebreaker
             this.telemetryClient.TrackTrace($"Testing, after filtering {members2.Count} in team {teamInfo.TeamId}");
             foreach (var m in members2)
             {
-                this.telemetryClient.TrackTrace($"OptIn member: {m.Name}, id: {m.Id}");
+                this.telemetryClient.TrackTrace($"OptIn member: {m.Name}, role: {m.Role}");
             }
 
             var members3 = members
@@ -420,7 +420,7 @@ namespace Icebreaker
             this.telemetryClient.TrackTrace($"Testing, during filtering {members3.Count} filtered out in team {teamInfo.TeamId}");
             foreach (var m in members3)
             {
-                this.telemetryClient.TrackTrace($"OptOut member: {m.Name}, id: {m.Id}");
+                this.telemetryClient.TrackTrace($"OptOut member: {m.Name}, role: {m.Role}");
             }
 
             //----------------------------
